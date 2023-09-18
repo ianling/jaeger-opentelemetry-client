@@ -2,10 +2,12 @@
 
 Initializes all the necessary `otel` things to enable sending traces to Jaeger.
 
-Simply call the `InitializeJaeger()` function at the beginning of your application and provide a Jaeger Agent host via
-the `OTEL_EXPORTER_JAEGER_AGENT_HOST` environment variable.
+Simply call the `InitializeJaeger()` function at the beginning of your application and provide a Jaeger Collector host via
+the `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` environment variable. See: https://opentelemetry.io/docs/concepts/sdk-configuration/otlp-exporter-configuration/#otel_exporter_otlp_traces_endpoint
 
-This package is safe to import and use even if you do not provide a Jaeger Agent host.
+Example: `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://my-api-endpoint:4318/v1/traces`
+
+This package is safe to import and use even if you do not provide a Jaeger Collector host.
 This is useful when running code in a local development environment, for example,
 where you may not have access to a Jaeger Agent. All calls to this package, as well as the `otel` package, effectively
 become no-ops.
