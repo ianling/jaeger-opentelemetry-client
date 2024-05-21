@@ -36,7 +36,11 @@ func InitializeJaeger(serviceName string, additionalAttributes ...attribute.KeyV
 	// Prevents any weirdness involving traces when running the service locally.
 	jaegerHost := os.Getenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT")
 	if jaegerHost == "" {
-		return ErrInvalidHost
+		// check a second environment variable
+		jaegerHost = os.Getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
+		if jaegerHost == "" {
+			return ErrInvalidHost
+		}
 	}
 
 	if serviceName == "" {
